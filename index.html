@@ -182,7 +182,6 @@
         const h = parseFloat(document.getElementById('height' + target).value);
         const gender = document.getElementById('gender' + target).value;
         if (!h) return;
-        // 産総研データに基づく純粋な計算式
         let result = (gender === 'male') ? (h * 0.145 + 0.3).toFixed(1) : (h * 0.141 + 0.5).toFixed(1);
         document.getElementById('foot' + target).value = result;
         update(); 
@@ -214,22 +213,20 @@
         document.getElementById('shapeA').setAttribute('fill', document.getElementById('colorA').value);
         document.getElementById('shapeB').setAttribute('fill', document.getElementById('colorB').value);
 
-        const baseSize = 25; // 基準サイズ
+        const baseSize = 25; 
         const scaleA = footA / baseSize;
         const scaleB = footB / baseSize;
 
         document.getElementById('svgContainerA').style.transform = `scale(${scaleA})`;
         document.getElementById('svgContainerB').style.transform = `scale(${scaleB})`;
 
-        // ラベル位置調整
-        const labelPosA = (400 * scaleA) + 10;
-        const labelPosB = (400 * scaleB) + 10;
-        document.getElementById('labelA').style.bottom = `${labelPosA}px`;
-        document.getElementById('labelB').style.bottom = `${labelPosB}px`;
+        const labelPosA = (400 * scaleA);
+        const labelPosB = (400 * scaleB);
+        document.getElementById('labelA').style.bottom = `${labelPosA + 10}px`;
+        document.getElementById('labelB').style.bottom = `${labelPosB + 10}px`;
 
-        // ズーム調整（足が大きすぎるときに全体を引く）
         const maxFoot = Math.max(footA, footB);
-        const zoomThreshold = 28; 
+        const zoomThreshold = 25; 
         let zoomScale = 1;
         
         if (maxFoot > zoomThreshold) {
